@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para vos</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
+:root{
+ --ink:#493f45;--muted:#87777e;--cream:#fffaf7;--blush:#f8dce5;
+ --rose:#e9a8bb;--rose2:#f3c7d5;--lav:#e8def1;--sage:#dce8dc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+ background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;
+ overflow-x:hidden;transition:background 1.4s ease
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.025;
+ background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+}
+main{min-height:100vh}
+section{
+ min-height:100vh;display:flex;align-items:center;justify-content:center;
+ padding:70px 24px;position:relative
+}
+.container{max-width:780px;width:100%;text-align:center}
+.eyebrow{
+ text-transform:uppercase;letter-spacing:.24em;font-size:.67rem;
+ color:var(--muted);margin-bottom:27px
+}
+h1,h2{font-family:'Playfair Display',serif;font-weight:500;line-height:1.08}
+h1{font-size:clamp(3.4rem,10vw,7rem);letter-spacing:-.035em}
+h2{font-size:clamp(2.6rem,6vw,4.7rem);letter-spacing:-.025em}
+p{font-size:clamp(1rem,2vw,1.1rem);line-height:1.9;color:#74676e}
+.hero{background:linear-gradient(180deg,#fffdfb 0%,#fffaf7 70%,#fdf0f4 100%)}
+.hero h1 em{color:var(--rose);font-style:italic}
+.hero .sub{max-width:510px;margin:28px auto 42px}
+.btn{
+ border:1px solid #d9c8ce;background:rgba(255,255,255,.58);color:var(--ink);
+ padding:15px 26px;border-radius:999px;font:inherit;cursor:pointer;
+ transition:.35s;backdrop-filter:blur(8px)
+}
+.btn:hover{background:#fff;transform:translateY(-3px);box-shadow:0 12px 30px #dcaabb30}
+.btn.primary{background:var(--rose);border-color:var(--rose);color:#fff}
+.scroll{
+ position:absolute;bottom:28px;font-size:.65rem;letter-spacing:.18em;color:#a8949d;
+ animation:breathe 2.4s ease-in-out infinite
+}
+@keyframes breathe{50%{opacity:.35;transform:translateY(5px)}}
+
+.blob{position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none}
+.blob.one{width:230px;height:230px;background:var(--blush);top:9%;right:-80px;opacity:.65}
+.blob.two{width:170px;height:170px;background:var(--lav);bottom:12%;left:-70px;opacity:.6}
+
+.card{
+ position:relative;border:1px solid #ead8de;background:#fffdfb;border-radius:34px;
+ padding:48px;text-align:left;box-shadow:0 30px 90px #c99aaa20;overflow:hidden
+}
+.card:after{
+ content:"";position:absolute;width:180px;height:180px;border-radius:50%;
+ background:var(--blush);right:-75px;top:-85px;opacity:.65
+}
+.card p{margin-top:20px;position:relative;z-index:1}
+.quote{
+ font-family:'Playfair Display',serif;font-style:italic;
+ font-size:clamp(1.45rem,4vw,2.25rem);line-height:1.45;color:#5a4b53
+}
+.reveal{opacity:0;transform:translateY(35px);transition:1s cubic-bezier(.2,.7,.2,1)}
+.reveal.visible{opacity:1;transform:none}
+.line{width:1px;height:90px;background:linear-gradient(var(--rose),transparent);margin:0 auto 30px}
+.soft-section{background:#fdf5f7}
+.final{
+ background:radial-gradient(circle at 20% 20%,#f8dce5 0,transparent 28%),
+            radial-gradient(circle at 85% 75%,#e8def1 0,transparent 30%),#fff8f9
+}
+.final .small{margin:25px auto 35px;max-width:520px}
+.buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.signature{margin-top:55px;font-family:'Playfair Display',serif;font-style:italic;color:#a78994}
+.ornament{
+ width:74px;height:74px;margin:0 auto 30px;border-radius:50%;
+ background:#fff;border:1px solid #edd4dc;display:flex;align-items:center;
+ justify-content:center;color:var(--rose);font-size:1.5rem;
+ box-shadow:0 10px 35px #dbaabd20
+}
+#toast{
+ position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);
+ background:#fff;color:#594a52;border:1px solid #ead5dc;padding:13px 20px;
+ border-radius:999px;opacity:0;pointer-events:none;transition:.35s;z-index:30;
+ box-shadow:0 12px 35px #b98b9b35;font-size:.9rem;white-space:nowrap
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.heart{position:fixed;pointer-events:none;font-size:18px;animation:float 2.7s ease-out forwards;z-index:40}
+@keyframes float{to{transform:translateY(-190px) rotate(25deg);opacity:0}}
+@media(max-width:600px){
+ .card{padding:31px 24px;border-radius:27px}
+ .buttons{flex-direction:column}.btn{width:100%}
+ #toast{white-space:normal;width:calc(100% - 40px);text-align:center}
+}
+</style>
+</head>
+<body>
+<main>
+
+<section class="hero"><div class="blob one"></div><div class="blob two"></div>
+  <div class="container">
+    <div class="eyebrow">Una pequeña cosa para vos</div><div class="ornament">♡</div>
+    <h1>Holiiii Sabes, hay algo que<br><em>quiero decirte.</em></h1>
+    <p class="sub">No encontré una manera que me gustara más de decirlo… así que hice esto.</p>
+    <button class="btn" onclick="go('story')">Seguir →</button>
+  </div>
+  <div class="scroll">DESLIZÁ ↓</div>
+</section>
+
+<section id="story" class="soft-section">
+  <div class="container reveal">
+    <div class="line"></div>
+    <div class="eyebrow">La verdad</div>
+    <div class="card">
+      <p class="quote">“Hay personas que llegan a tu vida sin hacer demasiado ruido… y de alguna manera terminan dejando color en lugares que antes parecían grises.”</p>
+      <p>
+        No sé exactamente en qué momento empezó. Quizá fue una conversación,
+        una mirada, una tontería que dijiste o simplemente la forma en que sos.
+        Pero poco a poco empecé a darme cuenta de que me importabas más de lo normal.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container reveal">
+    <div class="eyebrow">Y entonces</div>
+    <h2>Empecé a<br>buscar excusas para hablarte.</h2>
+    <p style="max-width:580px;margin:30px auto 0">
+      Y a recordar cosas pequeñas. A esperar tus mensajes.
+      A sonreír por cosas que probablemente para vos no significaban demasiado.
+    </p>
+  </div>
+</section>
+
+<section id="story" class="soft-section">
+  <div class="container reveal">
+    <div class="line"></div>
+    <div class="eyebrow">Y pues... </div>
+    <div class="card">
+      <p class="quote">“Hemos Hablado muchoooooo jskjsjs.”</p>
+      <p>
+        Cosas chistosas, Sentimientos no corrrespondidos, 
+        conocer nueva gente y que no se de, relaciones que fallaron 
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container reveal">
+    <div class="eyebrow">Y entonces, pensando tanto con mi cerebrito loco...</div>
+    <h2>me dije a mi mismo <br> mi mismo.</h2>
+    <p style="max-width:580px;margin:30px auto 0">
+     Usedes se llevan bien, sus relaciones anteriore fueron un asco, 
+     Que tal si pueden empezar a conocer mas del otro, como son, que les gusta y así.
+    </p>
+  </div>
+</section>
+
+<section id="story" class="soft-section">
+  <div class="container reveal">
+    <div class="line"></div>
+    <div class="eyebrow">Y como te dije </div>
+    <div class="card">
+      <p class="quote">“Yo soy, intenso y medio, </p>
+      <p>
+        me gusta que la persona que me gusta 
+        sepa que siento cosas por ella, se querer lindo y me gusta darlo todo
+        porque al final así soy jsksjskksj y pues asco el desinterés 
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container reveal">
+    <div class="line"></div>
+    <div class="eyebrow">Así que te lo hago saber que…</div>
+    <h2>Me cansé de darle tantas vueltas.</h2>
+    <p style="max-width:580px;margin:28px auto 0">
+      Podía escribir un mensaje. Podía decirlo en persona.
+      Pero supongo que hacer una página web era la opción más yo de todas.
+    </p>
+  </div>
+</section>
+
+<section class="final">
+  <div class="container reveal">
+    <div class="ornament">♡</div><div class="eyebrow">Ahora sí</div>
+    <h2>Me gustás.</h2>
+    <p class="small">
+      No espero que tengas una respuesta perfecta.<br>
+      Solo quería que lo supieras.
+    </p>
+    <div class="buttons">
+      <button class="btn primary" onclick="answer('sí')">Quiero intentarlo ♥</button>
+      <button class="btn" onclick="answer('tiempo')">Necesito pensarlo</button>
+    </div>
+    <div class="signature">— Isra o mejor conocido por vos como chiquillo ksksksksjajas</div>
+  </div>
+</section>
+
+</main>
+<div id="toast"></div>
+
+<script>
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+function answer(type){
+  const toast=document.getElementById('toast');
+  if(type==='sí'){
+    toast.textContent='Entonces… creo que tenemos algo que celebrar. ♡';
+    for(let i=0;i<12;i++) setTimeout(()=>{
+      const h=document.createElement('div');h.className='heart';h.textContent='♡';
+      h.style.left=(40+Math.random()*20)+'%';h.style.bottom='90px';
+      document.body.appendChild(h);setTimeout(()=>h.remove(),2500)
+    },i*100);
+  }else{
+    toast.textContent='Está bien. No tenés que responder ahora. :)';
+  }
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),3500);
+}
+</script>
+</body>
+</html>
