@@ -94,6 +94,67 @@ p{font-size:clamp(1rem,2vw,1.1rem);line-height:1.9;color:#74676e}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 .heart{position:fixed;pointer-events:none;font-size:18px;animation:float 2.7s ease-out forwards;z-index:40}
 @keyframes float{to{transform:translateY(-190px) rotate(25deg);opacity:0}}
+
+.foto-section{
+  background:linear-gradient(135deg,#fffaf7 0%,#fdf0f4 45%,#f8eef6 100%);
+  overflow:hidden
+}
+.foto-layout{
+  max-width:920px;width:100%;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1.15fr;gap:48px;
+  align-items:center;position:relative;z-index:1
+}
+.flor-lado{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;min-height:240px
+}
+.flor-lado .rosa-img{
+  width:min(320px,78vw);height:auto;
+  filter:drop-shadow(0 14px 32px #e9a8bb40);
+  animation:flor-sway 5s ease-in-out infinite;
+  position:relative;z-index:1
+}
+.flor-glow{
+  position:absolute;width:260px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,var(--blush) 0%,transparent 70%);
+  opacity:.9;z-index:0
+}
+@keyframes flor-sway{
+  0%,100%{transform:rotate(-4deg) translateY(0)}
+  50%{transform:rotate(5deg) translateY(-8px)}
+}
+.tarjeta-foto{
+  position:relative;border:1px solid #ead8de;background:#fffdfb;
+  border-radius:34px;padding:28px;text-align:left;
+  box-shadow:0 30px 90px #c99aaa20;overflow:hidden
+}
+.tarjeta-foto:before{
+  content:"";position:absolute;width:160px;height:160px;border-radius:50%;
+  background:var(--rose2);right:-60px;top:-70px;opacity:.55
+}
+.tarjeta-foto:after{
+  content:"";position:absolute;width:110px;height:110px;border-radius:50%;
+  background:var(--lav);left:-40px;bottom:-45px;opacity:.5
+}
+.foto-tarjeta{
+  display:block;width:100%;height:auto;aspect-ratio:1;
+  object-fit:cover;border-radius:22px;position:relative;z-index:1;
+  border:1px solid #f0dce3;box-shadow:0 12px 36px #dcaabb28
+}
+.tarjeta-foto .nota{
+  position:relative;z-index:1;margin-top:22px;
+  font-size:.92rem;line-height:1.75;color:#74676e
+}
+.tarjeta-foto .eyebrow{margin-bottom:14px;position:relative;z-index:1}
+
+@media(max-width:760px){
+  .foto-layout{grid-template-columns:1fr;gap:28px;text-align:center}
+  .flor-lado{min-height:140px;order:-1}
+  .flor-lado .rosa-img{width:min(240px,78vw)}
+  .flor-glow{width:180px;height:120px}
+  .tarjeta-foto{padding:22px;border-radius:27px;text-align:center}
+  .tarjeta-foto .eyebrow{letter-spacing:.16em}
+}
 @media(max-width:600px){
  .card{padding:31px 24px;border-radius:27px}
  .buttons{flex-direction:column}.btn{width:100%}
@@ -129,7 +190,7 @@ p{font-size:clamp(1rem,2vw,1.1rem);line-height:1.9;color:#74676e}
   </div>
 </section>
 
-<section>
+<section><div class="blob one"></div><div class="blob two"></div>
   <div class="container reveal">
     <div class="eyebrow">Y entonces</div>
     <h2>Empecé a<br>buscar excusas para hablarte.</h2>
@@ -154,11 +215,26 @@ p{font-size:clamp(1rem,2vw,1.1rem);line-height:1.9;color:#74676e}
   </div>
 </section>
 
-<div style="text-align: center;">
-  <img src="1.jpeg" alt="fotito" width="400" height="400"/>
-</div>
+<section class="foto-section">
+  <div class="blob one"></div><div class="blob two"></div>
+  <div class="foto-layout reveal">
+    <div class="flor-lado" aria-hidden="true">
+      <div class="flor-glow"></div>
+      <img src="rosa.png" alt="" class="rosa-img"/>
+    </div>
+    <div class="tarjeta-foto">
+      <div class="eyebrow">Nuestra primera fotito</div>
+      <img src="1.jpeg" alt="fotito" class="foto-tarjeta"/>
+      <p class="nota">
+        Ojito la foto la retoqué porque no me gustaba como salía yo jajajaja,
+        vos salís espectacular, además solo me tomé otra foto y me añadí ya
+        en mi versión más premium jsksjjs xd, ya sabes que soy bien chistoso.
+      </p>
+    </div>
+  </div>
+</section>
 
-<section>
+<section><div class="blob one"></div><div class="blob two"></div>
   <div class="container reveal">
     <div class="eyebrow">Y entonces, pensando tanto con mi cerebrito loco...</div>
     <h2>me dije a mí mismo, <br> mí mismo.</h2>
@@ -186,7 +262,7 @@ p{font-size:clamp(1rem,2vw,1.1rem);line-height:1.9;color:#74676e}
   </div>
 </section>
 
-<section>
+<section><div class="blob one"></div><div class="blob two"></div>
   <div class="container reveal">
     <div class="line"></div>
     <div class="eyebrow">Así que te lo hago saber que…</div>
